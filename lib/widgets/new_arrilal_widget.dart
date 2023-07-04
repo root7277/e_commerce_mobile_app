@@ -17,11 +17,15 @@ class NewArrial extends StatefulWidget {
 }
 
 class _NewArrialState extends State<NewArrial> {
+  bool isFav = false;
+  
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, 'product_details');
+        Navigator.pushNamed(
+          context, 'product_details', 
+        );
       },
       child: Column(
         children: [
@@ -37,8 +41,12 @@ class _NewArrialState extends State<NewArrial> {
                 Padding(
                   padding: const EdgeInsets.only(left: 100),
                   child: IconButton(
-                    onPressed: (){}, 
-                    icon: const Icon(Icons.favorite, color: Color.fromARGB(255, 247, 33, 33), size: 35,),
+                    onPressed: (){
+                      setState(() {
+                        isFav = !isFav;
+                      });
+                    },
+                    icon: isFav? const Icon(Icons.favorite, color: Color.fromARGB(255, 247, 33, 33), size: 35): const Icon(Icons.favorite_border, color: Colors.black, size: 35,),
                   ),
                 ),
                 Image.asset(widget.fon, height: 60,),
@@ -47,31 +55,28 @@ class _NewArrialState extends State<NewArrial> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5),
-            child: SizedBox(
-              width: 160,
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 160,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(widget.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),),
-                        const Row(
-                          children: [
-                            Icon(Icons.star, color: Colors.yellow),
-                            Text('4.5', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey)),
-                          ],
-                        ),
-                      ],
-                    ),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 160,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(widget.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),),
+                      const Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.yellow),
+                          Text('4.5', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey)),
+                        ],
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 90),
-                    child: Text(widget.price, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),),
-                  ),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 90),
+                  child: Text(widget.price, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),),
+                ),
+              ],
             ),
           ),
         ],
